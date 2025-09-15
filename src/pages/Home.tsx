@@ -135,7 +135,17 @@ const Home = () => {
               </Typography.Title>
               <Typography.Paragraph style={{ margin: 0 }}>
                 Please login to use the system. If you need admin rights,
-                contact the administrator.
+                contact the administrator. Enter with this account if you want
+                to go to the admin dashboard:
+                <br />
+                <div className="flex flex-col items-center mt-2">
+                  <strong className="text-primary">
+                    Email: gomen3624@gmail.com
+                  </strong>
+                  <strong className="text-primary">
+                    Password: hungnguyen1
+                  </strong>
+                </div>
               </Typography.Paragraph>
               <Button
                 type="primary"

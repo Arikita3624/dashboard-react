@@ -23,15 +23,7 @@ const AppRouter = () => {
         element={session ? <Navigate to="/" replace /> : <Login />}
       />
 
-      {/* Trang home: wrap ProtectedRoute để block nếu banned hoặc chưa login */}
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/" element={<Home />} />
 
       {/* Các route admin chỉ cho admin (và không banned) */}
       <Route

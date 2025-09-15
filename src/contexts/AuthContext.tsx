@@ -30,15 +30,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserWithRole | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Config Antd message để toast hiện rõ ràng (top-right, 5s)
-  useEffect(() => {
-    message.config({
-      top: 100, // Vị trí từ top
-      duration: 5, // Thời gian hiển thị (giây)
-      maxCount: 3, // Tối đa 3 toast cùng lúc
-    });
-  }, []);
-
   useEffect(() => {
     let isMounted = true;
     const fetchProfile = async (sessionObj: Session | null) => {
@@ -62,13 +53,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           return;
         }
 
-        // Check banned và logout + hiển thị message ngay (toast cho user)
+        // Check user status and block login if banned
         const status = profile?.status || "ongoing";
         if (status === "banned") {
-          console.log("User banned detected, signing out..."); // Chỉ dev thấy
+          console.log("User banned detected, signing out...");
           message.error(
             "Your account has been banned. Please contact support."
-          ); // User thấy toast đỏ!
+          );
           await supabase.auth.signOut();
           setSession(null);
           setUser(null);
@@ -100,12 +91,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    // Lấy session lần đầu
     supabase.auth.getSession().then(({ data }) => {
       fetchProfile(data?.session ?? null);
     });
 
-    // Lắng nghe thay đổi session
+    // Listen for auth state changes
     const { data: listener } = supabase.auth.onAuthStateChange(
       async (_event, newSession) => {
         fetchProfile(newSession);

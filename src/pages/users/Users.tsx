@@ -8,9 +8,27 @@ const Users = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [messageApi, contextHolder] = message.useMessage();
 
+  // Fetch current user ID on component mount
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setCurrentUserId(user?.id || null);
+    };
+    fetchCurrentUser();
+  }, []);
+
   const handleBan = async (userId: string | number, currentStatus: string) => {
+    // Prevent banning the current user
+    if (userId === currentUserId) {
+      messageApi.error("You cannot ban yourself!");
+      return;
+    }
+
     const newStatus = currentStatus === "banned" ? "ongoing" : "banned";
     const { error } = await supabase
       .from("profiles")
@@ -104,25 +122,32 @@ const Users = () => {
           <Link to={`${user.id}/edit`}>
             <Button type="primary">Set Role</Button>
           </Link>
-          <Popconfirm
-            title="Ban User"
-            description={
-              user.status === "banned"
-                ? "Are you sure to unban this user?"
-                : "Are you sure to ban this user?"
-            }
-            onConfirm={() => handleBan(user.id, user.status)}
-          >
-            <Button type="primary" danger>
+          {/* Disable ban button for current user */}
+          {user.id !== currentUserId ? (
+            <Popconfirm
+              title="Ban User"
+              description={
+                user.status === "banned"
+                  ? "Are you sure to unban this user?"
+                  : "Are you sure to ban this user?"
+              }
+              onConfirm={() => handleBan(user.id, user.status)}
+            >
+              <Button type="primary" danger>
+                {user.status === "banned" ? "Unban" : "Ban"}
+              </Button>
+            </Popconfirm>
+          ) : (
+            <Button type="primary" danger disabled>
               {user.status === "banned" ? "Unban" : "Ban"}
             </Button>
-          </Popconfirm>
+          )}
         </div>
       ),
     },
   ];
 
-  // filter users based on search
+  // Filter users based on search
   const filteredUsers = users.filter((user) =>
     user.full_name?.toLowerCase().includes(search.toLowerCase())
   );

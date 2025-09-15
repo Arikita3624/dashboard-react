@@ -47,6 +47,24 @@ const Login = () => {
           />
           <span>Login with Google</span>
         </button>
+        <div className="mt-6 flex justify-between">
+          <span>
+            <a
+              href="/"
+              className="items-center text-sm text-gray-400 hover:text-white"
+            >
+              Go to Home page
+            </a>
+          </span>
+          <span>
+            <a
+              href="#"
+              className="items-center text-sm text-gray-400 hover:text-white"
+            >
+              Contact with Dev
+            </a>
+          </span>
+        </div>
       </div>
     </div>
   );
