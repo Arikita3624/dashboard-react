@@ -27,7 +27,9 @@ const Login = () => {
       className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white"
       style={{ fontFamily: "Arial, sans-serif" }}
     >
-      <div className="p-8 rounded-lg shadow-lg bg-gray-800 bg-opacity-90 backdrop-blur-md">
+      <div className="p-8 rounded-lg shadow-lg bg-gray-800 bg-opacity-90 backdrop-blur-md w-full max-w-md">
+        {" "}
+        {/* Thêm width responsive */}
         <h1 className="text-3xl font-bold mb-8 text-center text-white">
           LOGIN TO YOUR ACCOUNT
         </h1>

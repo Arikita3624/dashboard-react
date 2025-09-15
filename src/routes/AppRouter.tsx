@@ -9,22 +9,31 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/404";
-import { AdminRoute } from "@/routes/ProtectedRoutes";
+import { AdminRoute, ProtectedRoute } from "@/routes/ProtectedRoutes"; // Import thêm ProtectedRoute
+import Users from "@/pages/users/Users";
+import UserEdit from "@/pages/users/UserEdit";
 
 const AppRouter = () => {
   const { session } = useAuth();
   return (
     <Routes>
-      {/* Trang login: nếu đã đăng nhập thì redirect về home */}
+      {/* Trang login: nếu đã đăng nhập thì redirect về home (sẽ bị block nếu banned qua ProtectedRoute) */}
       <Route
         path="/login"
         element={session ? <Navigate to="/" replace /> : <Login />}
       />
 
-      {/* Trang home: ai cũng truy cập được */}
-      <Route path="/" element={<Home />} />
+      {/* Trang home: wrap ProtectedRoute để block nếu banned hoặc chưa login */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Các route admin chỉ cho admin */}
+      {/* Các route admin chỉ cho admin (và không banned) */}
       <Route
         path="admin"
         element={
@@ -33,15 +42,28 @@ const AppRouter = () => {
           </AdminRoute>
         }
       >
+        {/*Dashboard */}
         <Route path="dashboard" element={<Dashboard />} />
+        {/*Products */}
         <Route path="products" element={<Products />} />
         <Route path="products/add" element={<ProductAdd />} />
         <Route path="products/:id/edit" element={<ProductEdit />} />
+        {/*Categories */}
         <Route path="categories" element={<Categories />} />
+        {/* Users */}
+        <Route path="users" element={<Users />} />
+        <Route path="users/:id/edit" element={<UserEdit />} />
       </Route>
 
-      {/* fallback: nếu không khớp route nào thì hiện trang 404 */}
-      <Route path="*" element={<NotFound />} />
+      {/* fallback: wrap ProtectedRoute để block nếu banned */}
+      <Route
+        path="*"
+        element={
+          <ProtectedRoute>
+            <NotFound />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };

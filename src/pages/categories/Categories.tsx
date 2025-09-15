@@ -73,9 +73,6 @@ const Categories = () => {
       key: "action",
       render: (_: any, category: any) => (
         <div className="flex gap-2">
-          <Link to={`/products/${category.id}/edit`}>
-            <Button type="primary">Edit</Button>
-          </Link>
           <Popconfirm
             title="Delete"
             description="Are you sure to delete this product?"

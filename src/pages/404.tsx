@@ -1,11 +1,29 @@
+import { Button, Result } from "antd";
+import { FrownOutlined } from "@ant-design/icons";
+
 const NotFound = () => (
-  <div className="flex flex-col items-center justify-center min-h-screen">
-    <h1 className="text-3xl font-bold mb-4 text-red-600">
-      404 - Dont found any page
-    </h1>
-    <a href="/" className="text-blue-500 underline">
-      Back to Home
-    </a>
+  <div
+    style={{
+      minHeight: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "#f5f5f5",
+    }}
+  >
+    <Result
+      icon={<FrownOutlined style={{ color: "#ff4d4f", fontSize: 64 }} />}
+      status="404"
+      title={
+        <span style={{ color: "#ff4d4f" }}>404 - Can't find that page</span>
+      }
+      subTitle="Sorry, the page you visited does not exist."
+      extra={
+        <Button type="primary" href="/">
+          Back Home
+        </Button>
+      }
+    />
   </div>
 );
 
