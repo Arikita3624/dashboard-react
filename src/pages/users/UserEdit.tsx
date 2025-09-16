@@ -20,6 +20,7 @@ const UserEdit = () => {
   const [userData, setUserData] = useState<FieldType | null>(null);
 
   useEffect(() => {
+    document.title = "Edit User";
     const fetchUser = async () => {
       setLoading(true);
       const { data } = await supabase

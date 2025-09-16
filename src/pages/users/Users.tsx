@@ -13,6 +13,7 @@ const Users = () => {
 
   // Fetch current user ID on component mount
   useEffect(() => {
+    document.title = "Users";
     const fetchCurrentUser = async () => {
       const {
         data: { user },
