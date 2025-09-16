@@ -1,35 +1,59 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { supabase } from "@/services/supabase";
-import StartCard from "@/components/StartCard";
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  created_at: string;
+}
 
 const Dashboard = () => {
-  const [stats, setStats] = useState<any[]>([]);
+  const [latestProducts, setLatestProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "Dashboard";
-    const fetchData = async () => {
-      const { data, error } = await supabase.from("stats").select("*");
-      if (error) {
-        console.error(error);
-      } else {
-        console.log(data);
-        setStats(data);
+    const fetchLatestProducts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("products")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(5);
+
+        if (error) throw error;
+        setLatestProducts(data || []);
+      } catch (error) {
+        console.error("Error fetching latest products:", error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchData();
+
+    fetchLatestProducts();
   }, []);
 
+  if (loading) return <div>Đang tải...</div>;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 max-w-6xl mx-auto">
-      {stats.map((item: any) => (
-        <StartCard
-          key={item.id}
-          title={item.title}
-          value={item.value}
-          created_at={item.created_at}
-        />
-      ))}
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+      <h2 className="text-xl mb-4">Sản phẩm mới nhất</h2>
+      {latestProducts.length > 0 ? (
+        <ul className="space-y-4">
+          {latestProducts.map((product) => (
+            <li key={product.id} className="p-4 bg-gray-800 rounded-lg">
+              <h3 className="font-semibold">{product.name}</h3>
+              <p>Giá: ${product.price}</p>
+              <p>
+                Thêm vào: {new Date(product.created_at).toLocaleDateString()}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Không có sản phẩm nào.</p>
+      )}
     </div>
   );
 };
