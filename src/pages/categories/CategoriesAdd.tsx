@@ -10,9 +10,11 @@ type FieldType = {
 };
 const CategoriesAdd = () => {
   const [massageApi, contextHolder] = message.useMessage();
-  const [loading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [form] = useForm();
 
+  // Giả lập loading
+  setTimeout(() => setLoading(false), 500);
   const onFinish = async (values: FieldType) => {
     const { error } = await supabase.from("categories").insert(values);
     if (error) {

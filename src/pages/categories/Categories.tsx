@@ -92,7 +92,7 @@ const Categories = () => {
       {contextHolder}
       <div className="flex justify-between mb-4">
         <h1 className="text-2xl font-bold">Categories</h1>
-        <Link to={"/categories/add"}>
+        <Link to={"add"}>
           <Button type="primary">Add Category</Button>
         </Link>
       </div>
