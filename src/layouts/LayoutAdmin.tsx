@@ -1,9 +1,5 @@
 import Sidebar from "@/components/Sidebar";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Layout, theme } from "antd";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
@@ -41,15 +37,6 @@ const LayoutAdmin = () => {
                 height: 64,
               }}
             />
-            <Button
-              type="text"
-              icon={<LogoutOutlined />}
-              style={{
-                marginRight: "16px",
-              }}
-            >
-              Logout
-            </Button>
           </Header>
           <Link to={"/"}>
             <Button type="primary">Go to Home</Button>
