@@ -1,7 +1,7 @@
 import { supabase } from "@/services/supabase";
 import { Button, Form, Input, message, Skeleton } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 type FieldType = {
@@ -12,8 +12,11 @@ const CategoriesAdd = () => {
   const [loading, setLoading] = useState(true);
   const [form] = useForm();
 
-  // Giả lập loading
-  setTimeout(() => setLoading(false), 500);
+  useEffect(() => {
+    document.title = "Add Category";
+    setLoading(false);
+  }, []);
+
   const onFinish = async (values: FieldType) => {
     const { error } = await supabase.from("categories").insert(values);
     if (error) {

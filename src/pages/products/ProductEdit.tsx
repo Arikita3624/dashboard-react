@@ -23,6 +23,7 @@ const ProductEdit = () => {
 
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    document.title = "Edit Product";
     const fetchData = async () => {
       setLoading(true);
       const [{ data: categoryData }, { data: productData }] = await Promise.all(

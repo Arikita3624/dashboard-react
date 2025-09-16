@@ -21,6 +21,7 @@ const ProductAdd = () => {
   const [form] = useForm();
 
   useEffect(() => {
+    document.title = "Add Product";
     const fetchCategories = async () => {
       setLoading(true);
       const { data, error } = await supabase.from("categories").select("*");

@@ -10,6 +10,7 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
   useEffect(() => {
+    document.title = "Products List";
     const fetchData = async () => {
       setLoading(true);
       const [{ data: productData }, { data: categoryData }] = await Promise.all(

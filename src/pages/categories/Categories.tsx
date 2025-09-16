@@ -9,6 +9,7 @@ const Categories = () => {
   const [loading, setLoading] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
   useEffect(() => {
+    document.title = "Categories";
     const fetchData = async () => {
       setLoading(true);
       const { data: categoryData, error } = await supabase

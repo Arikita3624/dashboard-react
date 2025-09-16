@@ -1,7 +1,11 @@
 import { supabase } from "@/services/supabase";
 import { GoogleOutlined } from "@ant-design/icons";
+import { useEffect } from "react";
 
 const Login = () => {
+  useEffect(() => {
+    document.title = "Login";
+  }, []);
   const handleLoginWithGoogle = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",

@@ -7,6 +7,7 @@ const Dashboard = () => {
   const [stats, setStats] = useState<any[]>([]);
 
   useEffect(() => {
+    document.title = "Dashboard";
     const fetchData = async () => {
       const { data, error } = await supabase.from("stats").select("*");
       if (error) {
