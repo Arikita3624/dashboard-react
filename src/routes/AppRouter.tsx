@@ -12,6 +12,7 @@ import NotFound from "@/pages/404";
 import { AdminRoute, ProtectedRoute } from "@/routes/ProtectedRoutes"; // Import thêm ProtectedRoute
 import Users from "@/pages/users/Users";
 import UserEdit from "@/pages/users/UserEdit";
+import CategoriesAdd from "@/pages/categories/CategoriesAdd";
 
 const AppRouter = () => {
   const { session } = useAuth();
@@ -42,6 +43,7 @@ const AppRouter = () => {
         <Route path="products/:id/edit" element={<ProductEdit />} />
         {/*Categories */}
         <Route path="categories" element={<Categories />} />
+        <Route path="categories/add" element={<CategoriesAdd />} />
         {/* Users */}
         <Route path="users" element={<Users />} />
         <Route path="users/:id/edit" element={<UserEdit />} />

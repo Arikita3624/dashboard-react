@@ -51,7 +51,7 @@ const ProductEdit = () => {
     } else {
       massageApi.success("Product updated successfully");
       setTimeout(() => {
-        navigate("/products");
+        navigate("/admin/products");
       }, 1500);
     }
   };
