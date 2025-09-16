@@ -14,9 +14,7 @@ const Dashboard = () => {
   return (
     <div className="p-6">
       {/* Header */}
-      <h1 className="text-3xl font-bold mb-6 text-gray-100">
-        Dashboard Overview
-      </h1>
+      <h1 className="text-3xl font-bold mb-6">Dashboard Overview</h1>
 
       {/* Stats Section */}
       <Row gutter={[16, 16]} className="mb-6">

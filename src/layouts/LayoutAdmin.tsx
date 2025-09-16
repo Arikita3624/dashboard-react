@@ -17,7 +17,7 @@ const LayoutAdmin = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Sidebar collapsed={collapsed} />
       <Layout>
-        <div className="flex justify-between items-center p-4">
+        <div className="flex justify-between items-center p-4 bg-amber-50">
           <Header
             style={{
               padding: 0,
