@@ -6,7 +6,7 @@ const Login = () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://dashboard-react-virid-eight.vercel.app",
+        redirectTo: "https://dashboard-react-virid-eight.vercel.app/",
         queryParams: {
           prompt: "select_account",
         },
