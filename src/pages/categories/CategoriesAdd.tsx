@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 type FieldType = {
   name: string;
-  created_at: string;
 };
 const CategoriesAdd = () => {
   const [massageApi, contextHolder] = message.useMessage();
