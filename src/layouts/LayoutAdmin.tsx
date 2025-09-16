@@ -4,10 +4,9 @@ import {
   MenuUnfoldOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, theme, message } from "antd";
+import { Button, Layout, theme } from "antd";
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import { supabase } from "@/services/supabase";
+import { Link, Outlet } from "react-router-dom";
 
 const { Header, Content } = Layout;
 
@@ -18,49 +17,44 @@ const LayoutAdmin = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    localStorage.clear();
-    message.success("Logout successfully");
-    setTimeout(() => {
-      window.location.href = "/login";
-    }, 2000);
-  };
-
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sidebar collapsed={collapsed} />
       <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
+        <div className="flex justify-between items-center p-4">
+          <Header
             style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-            }}
-          />
-          <Button
-            type="text"
-            icon={<LogoutOutlined />}
-            onClick={handleLogout}
-            style={{
-              marginRight: "16px",
+              padding: 0,
+              background: colorBgContainer,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            Logout
-          </Button>
-        </Header>
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 64,
+                height: 64,
+              }}
+            />
+            <Button
+              type="text"
+              icon={<LogoutOutlined />}
+              style={{
+                marginRight: "16px",
+              }}
+            >
+              Logout
+            </Button>
+          </Header>
+          <Link to={"/"}>
+            <Button type="primary">Go to Home</Button>
+          </Link>
+        </div>
         <Content
           style={{
             margin: "24px 16px",
