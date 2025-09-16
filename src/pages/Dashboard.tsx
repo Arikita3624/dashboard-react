@@ -49,7 +49,7 @@ const Dashboard = () => {
       {latestProducts.length > 0 ? (
         <ul className="space-y-4">
           {latestProducts.map((product) => (
-            <li key={product.id} className="p-4 bg-gray-800 rounded-lg">
+            <li key={product.id} className="p-4 border rounded shadow">
               <h3 className="font-semibold">{product.name}</h3>
               <p>Price{product.price}</p>
               <p>
