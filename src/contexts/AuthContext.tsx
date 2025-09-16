@@ -76,18 +76,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         };
         setUser(userWithRole);
         setLoading(false);
-        console.log("AuthProvider (profile fetch):", {
-          user: userWithRole,
-          session: sessionObj,
-        });
+        // console.log("AuthProvider (profile fetch):", {
+        //   user: userWithRole,
+        //   session: sessionObj,
+        // });
       } else {
         setSession(null);
         setUser(null);
         setLoading(false);
-        console.log("AuthProvider (no session):", {
-          user: null,
-          session: null,
-        });
+        // console.log("AuthProvider (no session):", {
+        //   user: null,
+        //   session: null,
+        // });
       }
     };
 
